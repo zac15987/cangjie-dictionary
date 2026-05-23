@@ -1,0 +1,7 @@
+#cangjie-dictionary-host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+}
