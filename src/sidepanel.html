@@ -27,8 +27,26 @@
     <div id="cj-empty" class="cj-empty">尚未輸入任何中文字</div>
   </section>
 
-  <section id="handwriting-slot" hidden>
-    <!-- 預留：未來手寫板掛載點 -->
+  <section id="handwriting-slot" class="cj-handwriting">
+    <div class="cj-handwriting-head">
+      <button type="button" id="cj-hw-toggle" class="cj-hw-toggle" aria-expanded="true" aria-controls="cj-hw-body" aria-label="切換手寫板顯示">
+        <span class="cj-hw-toggle-chevron" aria-hidden="true">▾</span>
+        <span class="cj-handwriting-title">手寫輸入</span>
+      </button>
+      <span class="cj-handwriting-privacy" title="筆跡會傳送至 Google Input Tools 進行辨識">筆跡會傳送至 Google 辨識</span>
+    </div>
+    <div id="cj-hw-body" class="cj-hw-body">
+      <div class="cj-canvas-wrap">
+        <canvas id="cj-canvas"></canvas>
+        <div id="cj-canvas-placeholder" class="cj-canvas-placeholder">在此書寫…</div>
+      </div>
+      <div class="cj-hw-toolbar">
+        <button type="button" id="cj-hw-undo" disabled>復原</button>
+        <button type="button" id="cj-hw-clear" disabled>清除</button>
+        <span id="cj-hw-status" class="cj-hw-status" role="status" aria-live="polite"></span>
+      </div>
+      <div id="cj-hw-candidates" class="cj-hw-candidates" aria-label="候選字"></div>
+    </div>
   </section>
 
   <script src="lib/cangjie-core.js"></script>

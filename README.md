@@ -18,10 +18,10 @@
 ## 功能特色
 
 - **多種查詢入口** — 選取網頁文字、工具列圖示輸入、右鍵選單、側邊欄持續輸入
-- **離線查表** — 字庫打包進擴充功能，無需網路、無外部 API 呼叫
+- **離線查表** — 字庫打包進擴充功能，倉頡碼查詢無需網路（手寫辨識為唯一選用的線上功能）
 - **完整字庫** — 涵蓋常用字 + CJK 擴充區罕用字（約 7.4 萬字）
 - **多字分解** — 一次選取或輸入多字，逐字顯示倉頡碼與字根
-- **側邊欄持續查詢** — 開啟側邊欄邊看網頁邊查，未來預留手寫板擴充
+- **側邊欄持續查詢** — 開啟側邊欄邊看網頁邊查，內建手寫輸入板（透過 Google Input Tools 辨識）
 - **Shadow DOM 隔離** — 浮動 UI 不受網頁樣式影響
 - **深淺色主題** — 側邊欄可切換淺色 / 深色 / 跟隨系統，所有介面同步套用
 
@@ -75,6 +75,12 @@
 | 淺色 | 深色 |
 |---|---|
 | <img src="docs/screenshots/side-panel-light.png" alt="側邊欄 淺色" width="420"> | <img src="docs/screenshots/side-panel-dark.png" alt="側邊欄 深色" width="420"> |
+
+側邊欄底部內建**手寫輸入板**（可由標題列的 ▾ 收合）：在畫布上寫一個字，停筆約 0.6 秒後會出現候選字，點選即填入 textarea 並自動拆字。支援滑鼠、觸控筆與觸控板。手寫辨識會將筆跡傳送至 [Google Input Tools](https://www.google.com/inputtools/services/features/handwriting.html)；倉頡查表本身仍 100% 離線運作。
+
+| 淺色 | 深色 |
+|---|---|
+| <img src="docs/screenshots/side-panel-handwriting-light.png" alt="側邊欄手寫板 淺色" width="420"> | <img src="docs/screenshots/side-panel-handwriting-dark.png" alt="側邊欄手寫板 深色" width="420"> |
 
 側邊欄頂部還提供 **淺色 / 深色 / 系統** 三段主題切換，設定透過 `chrome.storage.sync` 跨裝置同步，工具列 popup 與網頁浮動小卡會即時跟進。
 

@@ -8,6 +8,9 @@
     "contextMenus",
     "sidePanel"
   ],
+  "host_permissions": [
+    "https://inputtools.google.com/*"
+  ],
   "action": {
     "default_popup": "popup.html"
   },

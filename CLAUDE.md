@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Chrome MV3 extension that decomposes Chinese characters into Cangjie codes + radicals. Entirely offline; no API calls.
+Chrome MV3 extension that decomposes Chinese characters into Cangjie codes + radicals. Cangjie lookup is fully offline; the optional side-panel handwriting recognition is the only network call (routes ink to Google Input Tools).
 
 Four entry points exist on purpose — they target different use modes:
 
@@ -13,7 +13,7 @@ Four entry points exist on purpose — they target different use modes:
 3. **Right-click context menu** — two items, mutually exclusive by context:
    - On selection: "在倉頡側邊欄查詢「%s」" — opens the side panel pre-filled.
    - No selection: "開啟倉頡側邊欄" — opens the side panel empty.
-4. **Side panel** — textarea + live results + reserved slot for a future handwriting canvas (heavy / persistent lookup).
+4. **Side panel** — textarea + live results + handwriting canvas that posts strokes to Google Input Tools for candidate characters (heavy / persistent lookup).
 
 The popup card and the side panel both expose an "在側邊欄開啟 →" button that promotes the current text from the lightweight surface to the persistent one.
 
@@ -81,7 +81,13 @@ Single IIFE injected on every URL. Owns the floating 倉 icon and the Shadow DOM
 
 ### Side panel (`src/sidepanel.{html,js,css}`)
 
-textarea + results region + a hidden `#handwriting-slot` reserved for a future handwriting canvas (not implemented). On load it reads `chrome.storage.session.pendingQuery` (if any) to prefill, then removes it. While open, it listens to `chrome.storage.onChanged` so that subsequent context-menu / popup invocations update the textarea live.
+textarea + results region + handwriting panel. On load it reads `chrome.storage.session.pendingQuery` (if any) to prefill, then removes it. While open, it listens to `chrome.storage.onChanged` so that subsequent context-menu / popup invocations update the textarea live.
+
+**Handwriting panel** (`#handwriting-slot`) — collapsible via a chevron toggle in the section header; collapsed state persists as `chrome.storage.sync.handwritingCollapsed` (default `false`). On expand, `setupCanvasSize()` re-runs because the hidden canvas's `getBoundingClientRect()` was zero. `<canvas id="cj-canvas">` with pointer-event stroke capture (mouse / touch / pen via `setPointerCapture`). Strokes are stored as `[[{x, y, t}, ...], ...]` in CSS-pixel coordinates with `performance.now()`-based timestamps relative to the session start. 600 ms after the last `pointerup`, `recognize(strokes)` rescales coordinates to a 280×280 writing-area and POSTs them to `https://inputtools.google.com/request?ime=handwriting` with `language: "zh_TW"`. The response shape is `["SUCCESS", [["stroke_id", ["字1", "字2", ...]]]]` — candidates render as `.cj-hw-candidate` chips below the canvas. Clicking a chip appends the character to `#cj-input`, triggers the existing `render()`, and clears the canvas for the next character.
+
+Race-guarding: each `runRecognize()` increments a `recognizeSeq` counter and stale responses are dropped. Canvas backing store scales by `devicePixelRatio` on init and on `resize`. Ink color is read from CSS var `--cj-ink` so theme switches trigger a redraw via the existing `initTheme` `onChange` hook.
+
+This is the only network call in the extension; dictionary lookup remains 100% offline. The handwriting panel surfaces a privacy hint ("筆跡會傳送至 Google 辨識") next to the title. Requires `host_permissions: ["https://inputtools.google.com/*"]` in `manifest.json`. The Google Input Tools endpoint is undocumented but stable (same backend Google's own homepage handwriting widget uses); if it ever fails, fetch errors degrade to a "辨識失敗" status message and the rest of the side panel keeps working.
 
 ### Cross-context data channel: `chrome.storage.session.pendingQuery`
 
