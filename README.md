@@ -50,9 +50,17 @@
 
 選取任意中文字 → 旁邊出現藍色 **倉** 圖示 → 點擊查看分解卡片。卡片底部有「在側邊欄開啟 →」可升級到側邊欄。
 
+| 淺色 | 深色 |
+|---|---|
+| <img src="docs/screenshots/popup-card-light.png" alt="頁面浮動卡片 淺色" width="320"> | <img src="docs/screenshots/popup-card-dark.png" alt="頁面浮動卡片 深色" width="320"> |
+
 ### 2. 點擊工具列圖示（快速輸入）
 
 點擊工具列上的倉圖示 → 開啟小型輸入框 → 即時拆字。底部「在側邊欄開啟 →」可帶著當前輸入跳到側邊欄。
+
+| 淺色 | 深色 |
+|---|---|
+| <img src="docs/screenshots/popup-light.png" alt="工具列 popup 淺色" width="320"> | <img src="docs/screenshots/popup-dark.png" alt="工具列 popup 深色" width="320"> |
 
 ### 3. 右鍵選單
 
@@ -62,6 +70,10 @@
 ### 4. 側邊欄（持續查詢）
 
 從上述任一入口開啟側邊欄後，可在 textarea 內持續輸入，結果即時更新。側邊欄會在分頁切換時自動跟隨，適合邊看網頁邊查字。
+
+| 淺色 | 深色 |
+|---|---|
+| <img src="docs/screenshots/side-panel-light.png" alt="側邊欄 淺色" width="420"> | <img src="docs/screenshots/side-panel-dark.png" alt="側邊欄 深色" width="420"> |
 
 側邊欄頂部還提供 **淺色 / 深色 / 系統** 三段主題切換，設定透過 `chrome.storage.sync` 跨裝置同步，工具列 popup 與網頁浮動小卡會即時跟進。
 
