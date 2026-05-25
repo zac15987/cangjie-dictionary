@@ -8,7 +8,8 @@
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome-擴充功能-4285f4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-34a853?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3)
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Dictionary: LGPL-3.0-or-later](https://img.shields.io/badge/Dictionary-LGPL--3.0--or--later-blue.svg)](LICENSES/LGPL-3.0-or-later.txt)
 
 </div>
 
@@ -125,6 +126,11 @@ node scripts/build-data.mjs --offline  # 用 scripts/raw/ 的快取
 
 ## 資料來源與授權
 
-字庫資料衍生自 [rime/rime-cangjie](https://github.com/rime/rime-cangjie)（GPL-3.0），原始碼來自《五倉世紀》by chinesecj.com。因引用 GPL 資料，本專案亦採 [GPL-3.0-or-later](LICENSE) 授權。
+本專案採雙授權結構：
+
+- **程式碼**（`src/` 內除字典外的所有檔案、`scripts/`、文件）— [MIT License](LICENSE)
+- **字典資料 `src/data/cangjie5.json`** — [LGPL-3.0-or-later](LICENSES/LGPL-3.0-or-later.txt)，衍生自 [rime/rime-cangjie](https://github.com/rime/rime-cangjie)，原始碼來自《五倉世紀》by chinesecj.com
+
+授權標註遵循 [REUSE](https://reuse.software/) 慣例：`src/data/cangjie5.json.license` 為對應的 SPDX sidecar。若 fork 或散布本專案，請保留字典檔的授權標註並符合 LGPL-3.0-or-later 散布條件（允許使用者替換字典）。
 
 UX 模式參考 [pinyin-to-chinese](https://gitlab.com/zac15987/pinyin-to-chinese)（MIT）。

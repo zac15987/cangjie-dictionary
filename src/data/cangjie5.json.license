@@ -1,0 +1,12 @@
+SPDX-FileCopyrightText: rime-cangjie contributors
+SPDX-FileCopyrightText: Source data: chinesecj.com (五倉世紀)
+SPDX-License-Identifier: LGPL-3.0-or-later
+
+This file is derived from rime/rime-cangjie:
+  https://github.com/rime/rime-cangjie
+
+It is built by scripts/build-data.mjs from the upstream
+cangjie5.base.dict.yaml + cangjie5.extended.dict.yaml.
+
+You may replace this file with your own LGPL-3.0-or-later-compatible
+dictionary build. See LICENSES/LGPL-3.0-or-later.txt for the full text.

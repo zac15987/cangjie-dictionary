@@ -109,4 +109,15 @@ Picker UI lives only in the side panel header (radio group). Popup and the conte
 
 ## License constraint
 
-Because `src/data/cangjie5.json` is derived from rime-cangjie (GPL-3.0), the entire repository is GPL-3.0-or-later. Do not propose relicensing to MIT/permissive without first removing or replacing the bundled dictionary. The build script and content script alone would be relicensable, but as long as `cangjie5.json` ships in this repo, GPL is mandatory.
+Dual-license structure:
+
+- **Code** (everything in `src/` except the dictionary, plus `scripts/` and docs) — MIT, see `LICENSE`.
+- **Dictionary `src/data/cangjie5.json`** — LGPL-3.0-or-later (derived from rime/rime-cangjie). Marked via the REUSE sidecar `src/data/cangjie5.json.license`. Full license texts live in `LICENSES/LGPL-3.0-or-later.txt` and `LICENSES/GPL-3.0-or-later.txt` (LGPL-3.0 incorporates GPL-3.0 by reference).
+
+Practical consequences:
+
+- Sister projects (e.g. pinyin-to-chinese) can freely borrow the UI / Shadow-DOM card / theme code under MIT without copyleft.
+- If you replace or remove `cangjie5.json`, the whole repo becomes pure MIT.
+- If you redistribute the dictionary (or a derivative of it), you must keep its LGPL-3.0-or-later notice, ship the LGPL text, and allow users to substitute their own dictionary build — which is naturally satisfied since the file is loaded at runtime from `src/data/`.
+
+Do not move dictionary-derived data into the MIT-covered code (e.g. inlining the JSON into a `.js` file) — that would muddle the boundary. Keep the dictionary as a separate, replaceable runtime asset.
