@@ -2,34 +2,108 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>Cangjie Dictionary</title>
+  <title>倉頡字典</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      width: 260px;
+      width: 300px;
       margin: 0;
-      padding: 16px;
+      padding: 12px 14px;
       font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
       font-size: 13px;
-      color: #333;
-      line-height: 1.6;
+      color: #222;
+      background: #fff;
     }
     h1 {
-      font-size: 15px;
       margin: 0 0 8px 0;
+      font-size: 14px;
+      font-weight: 600;
     }
-    p { margin: 6px 0; }
-    .hint { color: #666; font-size: 12px; }
-    code {
-      background: #f4f4f4;
-      padding: 1px 5px;
-      border-radius: 3px;
+    #cj-input {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 15px;
+      font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      outline: none;
+    }
+    #cj-input:focus {
+      border-color: #4285f4;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.15);
+    }
+    .cj-results {
+      margin-top: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .cj-row {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      column-gap: 12px;
+      align-items: baseline;
+      padding: 4px 0;
+    }
+    .cj-row + .cj-row {
+      border-top: 1px solid #f5f5f5;
+    }
+    .cj-char {
+      font-size: 20px;
+      color: #222;
+      line-height: 1.2;
+      font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
+    }
+    .cj-code {
+      font-size: 14px;
+      color: #4285f4;
+      font-weight: bold;
+      letter-spacing: 2px;
+      font-family: 'Consolas', 'Menlo', monospace;
+    }
+    .cj-roots {
+      font-size: 15px;
+      color: #555;
+      letter-spacing: 4px;
+    }
+    .cj-missing {
       font-size: 12px;
+      color: #bbb;
+      grid-column: 2 / span 2;
+    }
+    .cj-error {
+      font-size: 12px;
+      color: #d93025;
+      margin-top: 6px;
+    }
+    .cj-footer {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+    }
+    #cj-open-sidepanel {
+      background: none;
+      border: none;
+      color: #4285f4;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+    #cj-open-sidepanel:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <h1>倉頡字典</h1>
-  <p>在任何網頁選取中文字，旁邊會出現 <strong>倉</strong> 圖示，點擊查看倉頡碼分解。</p>
-  <p class="hint">例：<code>好 → VND → 女弓木</code></p>
+  <input id="cj-input" type="text" placeholder="輸入中文字…" autocomplete="off" spellcheck="false">
+  <div id="cj-results" class="cj-results"></div>
+  <div class="cj-footer">
+    <button id="cj-open-sidepanel" type="button">在側邊欄開啟 →</button>
+  </div>
+
+  <script src="lib/cangjie-core.js"></script>
+  <script src="popup.js"></script>
 </body>
 </html>

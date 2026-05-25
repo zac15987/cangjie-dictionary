@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>倉頡字典</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <header class="cj-header">
+    <h1>倉頡字典</h1>
+    <p class="cj-hint">輸入或貼上中文字，自動拆出倉頡碼與字根</p>
+  </header>
+
+  <section class="cj-input-section">
+    <textarea id="cj-input" placeholder="在此輸入中文字…" autocomplete="off" spellcheck="false"></textarea>
+  </section>
+
+  <section class="cj-results-section">
+    <div id="cj-results" class="cj-results"></div>
+    <div id="cj-empty" class="cj-empty">尚未輸入任何中文字</div>
+  </section>
+
+  <section id="handwriting-slot" hidden>
+    <!-- 預留：未來手寫板掛載點 -->
+  </section>
+
+  <script src="lib/cangjie-core.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

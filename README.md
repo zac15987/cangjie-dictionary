@@ -4,7 +4,7 @@
 
 # Cangjie Dictionary
 
-**在任何網頁上選取中文字，一鍵查看倉頡碼分解。**
+**在任何網頁上查詢中文字的倉頡碼分解 — 選取、輸入、右鍵都能用。**
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome-擴充功能-4285f4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-34a853?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3)
@@ -16,16 +16,17 @@
 
 ## 功能特色
 
-- **選取即查詢** — 在任意網頁選取中文字，旁邊出現浮動 **倉** 圖示，點擊查看倉頡碼
+- **多種查詢入口** — 選取網頁文字、工具列圖示輸入、右鍵選單、側邊欄持續輸入
 - **離線查表** — 字庫打包進擴充功能，無需網路、無外部 API 呼叫
 - **完整字庫** — 涵蓋常用字 + CJK 擴充區罕用字（約 7.4 萬字）
-- **多字分解** — 一次選取多字，逐字顯示倉頡碼與字根
-- **Shadow DOM 隔離** — UI 不受網頁樣式影響
+- **多字分解** — 一次選取或輸入多字，逐字顯示倉頡碼與字根
+- **側邊欄持續查詢** — 開啟側邊欄邊看網頁邊查，未來預留手寫板擴充
+- **Shadow DOM 隔離** — 浮動 UI 不受網頁樣式影響
 
 ## 使用示範
 
 ```
-選取「好友」
+輸入「好友」
 ─────────────────
 好  VND  女弓木
 友  KE   大水
@@ -42,10 +43,26 @@
 
 ## 使用方法
 
-1. 在任意網頁上 **選取** 中文字
-2. 選取旁邊會出現藍色 **倉** 圖示
-3. **點擊** 圖示顯示倉頡碼分解
-4. `ESC` 或點擊外部關閉
+擴充功能提供四種互補的查詢入口：
+
+### 1. 選取網頁文字（最輕量）
+
+選取任意中文字 → 旁邊出現藍色 **倉** 圖示 → 點擊查看分解卡片。卡片底部有「在側邊欄開啟 →」可升級到側邊欄。
+
+### 2. 點擊工具列圖示（快速輸入）
+
+點擊工具列上的倉圖示 → 開啟小型輸入框 → 即時拆字。底部「在側邊欄開啟 →」可帶著當前輸入跳到側邊欄。
+
+### 3. 右鍵選單
+
+- 選取中文字後右鍵 → **在倉頡側邊欄查詢「xxx」** → 側邊欄開啟並預填
+- 無選取時右鍵 → **開啟倉頡側邊欄** → 開啟空白側邊欄
+
+### 4. 側邊欄（持續查詢）
+
+從上述任一入口開啟側邊欄後，可在 textarea 內持續輸入，結果即時更新。側邊欄會在分頁切換時自動跟隨，適合邊看網頁邊查字。
+
+關閉浮動卡片：`ESC` 或點擊外部。
 
 ## 倉頡 24 字根
 
@@ -64,15 +81,22 @@
 ```
 cangjie-dictionary/
 ├── src/
-│   ├── manifest.json    # Manifest V3 設定
-│   ├── content.js       # 選取偵測、字典查詢、UI
-│   ├── content.css      # Host 元素定位
-│   ├── popup.html       # 擴充功能說明頁
+│   ├── manifest.json       # Manifest V3 設定
+│   ├── background.js       # Service worker：右鍵選單、開啟側邊欄
+│   ├── content.js          # 選取偵測、浮動卡片
+│   ├── content.css         # Host 元素定位
+│   ├── popup.html          # 工具列圖示 → 輕量輸入框
+│   ├── popup.js
+│   ├── sidepanel.html      # 側邊欄輸入介面
+│   ├── sidepanel.js
+│   ├── sidepanel.css
+│   ├── lib/
+│   │   └── cangjie-core.js # 共用模組：字典、拆字、HTML 渲染
 │   ├── data/
 │   │   └── cangjie5.json   # 字 → 倉頡碼對照表
 │   └── icons/
 ├── scripts/
-│   └── build-data.mjs   # 從 rime-cangjie 產生 cangjie5.json
+│   └── build-data.mjs      # 從 rime-cangjie 產生 cangjie5.json
 ├── LICENSE
 └── README.md
 ```

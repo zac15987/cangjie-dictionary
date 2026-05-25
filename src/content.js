@@ -1,23 +1,9 @@
 (function () {
   'use strict';
 
-  // === CONSTANTS ===
   const HOST_ID = 'cangjie-dictionary-host';
-  const MAX_SELECTION_LENGTH = 200;
 
-  // Cangjie 24-key radical map (lowercase letter -> Chinese radical char).
-  // Reference: https://en.wikipedia.org/wiki/Cangjie_input_method
-  const RADICAL_MAP = {
-    a: '日', b: '月', c: '金', d: '木', e: '水', f: '火', g: '土',
-    h: '竹', i: '戈', j: '十', k: '大', l: '中', m: '一', n: '弓',
-    o: '人', p: '心', q: '手', r: '口', s: '尸', t: '廿',
-    u: '山', v: '女', w: '田', x: '難', y: '卜'
-  };
-
-  // === STATE ===
   let currentSelection = '';
-  let dict = null;        // Map<string, string>  char -> lowercase code
-  let dictLoading = null; // Promise
 
   // === SHADOW DOM SETUP ===
   const host = document.createElement('div');
@@ -109,47 +95,54 @@
       color: #999;
     }
     .cj-error { color: #d93025; }
+
+    #cj-popup-footer {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+    }
+    #cj-open-sidepanel {
+      background: none;
+      border: none;
+      color: #4285f4;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 2px 4px;
+      font-family: inherit;
+    }
+    #cj-open-sidepanel:hover {
+      text-decoration: underline;
+    }
   `;
   shadow.appendChild(style);
 
-  // Create icon element
   const iconEl = document.createElement('div');
   iconEl.id = 'cj-icon';
   iconEl.textContent = '倉';
   iconEl.title = '顯示倉頡碼分解';
   shadow.appendChild(iconEl);
 
-  // Create popup element
   const popupEl = document.createElement('div');
   popupEl.id = 'cj-popup';
   shadow.appendChild(popupEl);
 
-  // === DICT LOADING ===
+  const popupContentEl = document.createElement('div');
+  popupContentEl.id = 'cj-popup-content';
+  popupEl.appendChild(popupContentEl);
 
-  function loadDict() {
-    if (dict) return Promise.resolve(dict);
-    if (dictLoading) return dictLoading;
-    dictLoading = (async () => {
-      const url = chrome.runtime.getURL('data/cangjie5.json');
-      const res = await fetch(url);
-      const obj = await res.json();
-      dict = new Map(Object.entries(obj));
-      return dict;
-    })();
-    return dictLoading;
-  }
+  const popupFooterEl = document.createElement('div');
+  popupFooterEl.id = 'cj-popup-footer';
+  const openSidePanelBtn = document.createElement('button');
+  openSidePanelBtn.id = 'cj-open-sidepanel';
+  openSidePanelBtn.type = 'button';
+  openSidePanelBtn.textContent = '在側邊欄開啟 →';
+  popupFooterEl.appendChild(openSidePanelBtn);
+  popupEl.appendChild(popupFooterEl);
 
-  // Kick off load eagerly so first click is instant.
-  loadDict().catch(() => { /* will retry on click */ });
-
-  // === DETECTION ===
-
-  const HAN_RE = /\p{Script=Han}/u;
-
-  function hasCJK(text) {
-    if (!text || text.length > MAX_SELECTION_LENGTH) return false;
-    return HAN_RE.test(text);
-  }
+  // Kick off dict load eagerly so first click is instant.
+  CangjieCore.loadDict().catch(() => { /* will retry on click */ });
 
   // === UI FUNCTIONS ===
 
@@ -177,7 +170,7 @@
 
   function hidePopup() {
     popupEl.style.display = 'none';
-    popupEl.innerHTML = '';
+    popupContentEl.innerHTML = '';
   }
 
   function hideAll() {
@@ -186,58 +179,24 @@
   }
 
   function showLoading() {
-    popupEl.innerHTML = '<div class="cj-loading">載入字典中...</div>';
+    popupContentEl.innerHTML = '<div class="cj-loading">載入字典中...</div>';
     popupEl.style.display = 'block';
     positionPopup();
   }
 
   function showError(message) {
-    popupEl.innerHTML = `<div class="cj-error">${escapeHtml(message)}</div>`;
+    popupContentEl.innerHTML = `<div class="cj-error">${CangjieCore.escapeHtml(message)}</div>`;
     popupEl.style.display = 'block';
     positionPopup();
   }
 
-  function decompose(char) {
-    const code = dict.get(char);
-    if (!code) return null;
-    const upper = code.toUpperCase();
-    const roots = [...code].map((c) => RADICAL_MAP[c] || '?').join('');
-    return { code: upper, roots };
-  }
-
   function showResults(text) {
-    const chars = [...text].filter((c) => HAN_RE.test(c));
-    if (chars.length === 0) {
+    const html = CangjieCore.renderRowsHtml(text);
+    if (!html) {
       hidePopup();
       return;
     }
-
-    // De-duplicate while preserving order
-    const seen = new Set();
-    const unique = chars.filter((c) => {
-      if (seen.has(c)) return false;
-      seen.add(c);
-      return true;
-    });
-
-    let html = '';
-    for (const ch of unique) {
-      const parts = decompose(ch);
-      if (parts) {
-        html += `<div class="cj-row">
-          <span class="cj-char">${escapeHtml(ch)}</span>
-          <span class="cj-code">${escapeHtml(parts.code)}</span>
-          <span class="cj-roots">${escapeHtml(parts.roots)}</span>
-        </div>`;
-      } else {
-        html += `<div class="cj-row">
-          <span class="cj-char">${escapeHtml(ch)}</span>
-          <span class="cj-missing">無倉頡碼</span>
-        </div>`;
-      }
-    }
-
-    popupEl.innerHTML = html;
+    popupContentEl.innerHTML = html;
     popupEl.style.display = 'block';
     positionPopup();
   }
@@ -265,14 +224,6 @@
     popupEl.style.top = `${top}px`;
   }
 
-  // === HELPERS ===
-
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
   // === EVENT LISTENERS ===
 
   document.addEventListener('mouseup', (e) => {
@@ -283,7 +234,7 @@
       if (!selection || selection.isCollapsed) return;
 
       const text = selection.toString().trim();
-      if (!text || !hasCJK(text)) return;
+      if (!text || !CangjieCore.hasCJK(text)) return;
 
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
@@ -317,6 +268,17 @@
     }, 100);
   }, true);
 
+  openSidePanelBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const text = currentSelection;
+    if (!text) return;
+    chrome.runtime.sendMessage({ type: 'openSidePanel', text }).catch((err) => {
+      console.error('[cangjie] openSidePanel message failed', err);
+    });
+    hideAll();
+  });
+
   iconEl.addEventListener('click', async (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -324,10 +286,10 @@
     const text = currentSelection;
     if (!text) return;
 
-    if (!dict) {
+    if (!CangjieCore.isDictReady()) {
       showLoading();
       try {
-        await loadDict();
+        await CangjieCore.loadDict();
       } catch (err) {
         showError('字典載入失敗');
         return;

@@ -1,0 +1,116 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Microsoft JhengHei', 'Microsoft YaHei', 'PingFang TC', -apple-system, sans-serif;
+  color: #222;
+  background: #fafafa;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.cj-header {
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+.cj-header h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.cj-hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #888;
+}
+
+.cj-input-section {
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+#cj-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px 10px;
+  font-size: 16px;
+  font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  resize: vertical;
+  outline: none;
+  background: #fff;
+  color: #222;
+}
+#cj-input:focus {
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.15);
+}
+
+.cj-results-section {
+  flex: 1;
+  padding: 8px 16px 16px;
+  overflow-y: auto;
+}
+
+.cj-results {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 4px 12px;
+}
+.cj-results:empty {
+  display: none;
+}
+
+.cj-empty {
+  font-size: 13px;
+  color: #aaa;
+  padding: 12px 4px;
+  text-align: center;
+}
+.cj-results:not(:empty) + .cj-empty {
+  display: none;
+}
+
+.cj-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  column-gap: 14px;
+  align-items: baseline;
+  padding: 6px 0;
+}
+.cj-row + .cj-row {
+  border-top: 1px solid #f5f5f5;
+}
+.cj-char {
+  font-size: 22px;
+  color: #222;
+  line-height: 1.2;
+  font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
+}
+.cj-code {
+  font-size: 16px;
+  color: #4285f4;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-family: 'Consolas', 'Menlo', monospace;
+}
+.cj-roots {
+  font-size: 17px;
+  color: #555;
+  letter-spacing: 4px;
+}
+.cj-missing {
+  font-size: 14px;
+  color: #bbb;
+  grid-column: 2 / span 2;
+}
