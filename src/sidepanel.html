@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <title>倉頡字典</title>
@@ -7,7 +7,14 @@
 </head>
 <body>
   <header class="cj-header">
-    <h1>倉頡字典</h1>
+    <div class="cj-header-row">
+      <h1>倉頡字典</h1>
+      <div class="cj-theme-picker" role="radiogroup" aria-label="主題">
+        <label><input type="radio" name="cj-theme" value="light">淺色</label>
+        <label><input type="radio" name="cj-theme" value="dark">深色</label>
+        <label><input type="radio" name="cj-theme" value="system">系統</label>
+      </div>
+    </div>
     <p class="cj-hint">輸入或貼上中文字，自動拆出倉頡碼與字根</p>
   </header>
 

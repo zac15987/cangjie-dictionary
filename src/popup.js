@@ -5,6 +5,8 @@
   const resultsEl = document.getElementById('cj-results');
   const openBtn = document.getElementById('cj-open-sidepanel');
 
+  CangjieCore.initTheme(document.documentElement);
+
   function render(text) {
     resultsEl.innerHTML = CangjieCore.renderRowsHtml(text || '');
   }

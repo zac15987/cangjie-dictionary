@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <title>倉頡字典</title>
   <style>
+    [data-theme="light"] {
+      --cj-bg: #fff;
+      --cj-bg-elev: #fff;
+      --cj-text: #222;
+      --cj-text-dim: #555;
+      --cj-border: #eee;
+      --cj-border-soft: #f5f5f5;
+      --cj-input-border: #d0d0d0;
+      --cj-accent: #4285f4;
+      --cj-accent-soft: rgba(66, 133, 244, 0.15);
+      --cj-error: #d93025;
+      --cj-missing: #bbb;
+    }
+    [data-theme="dark"] {
+      --cj-bg: #1e1e1e;
+      --cj-bg-elev: #2a2a2a;
+      --cj-text: #e8e8e8;
+      --cj-text-dim: #a8a8a8;
+      --cj-border: #3a3a3a;
+      --cj-border-soft: #333;
+      --cj-input-border: #4a4a4a;
+      --cj-accent: #8ab4f8;
+      --cj-accent-soft: rgba(138, 180, 248, 0.18);
+      --cj-error: #f28b82;
+      --cj-missing: #666;
+    }
     * { box-sizing: border-box; }
     body {
       width: 300px;
@@ -11,8 +37,8 @@
       padding: 12px 14px;
       font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
       font-size: 13px;
-      color: #222;
-      background: #fff;
+      color: var(--cj-text);
+      background: var(--cj-bg);
     }
     h1 {
       margin: 0 0 8px 0;
@@ -24,13 +50,15 @@
       padding: 6px 8px;
       font-size: 15px;
       font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
-      border: 1px solid #d0d0d0;
+      border: 1px solid var(--cj-input-border);
       border-radius: 4px;
       outline: none;
+      background: var(--cj-bg-elev);
+      color: var(--cj-text);
     }
     #cj-input:focus {
-      border-color: #4285f4;
-      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.15);
+      border-color: var(--cj-accent);
+      box-shadow: 0 0 0 2px var(--cj-accent-soft);
     }
     .cj-results {
       margin-top: 8px;
@@ -45,47 +73,47 @@
       padding: 4px 0;
     }
     .cj-row + .cj-row {
-      border-top: 1px solid #f5f5f5;
+      border-top: 1px solid var(--cj-border-soft);
     }
     .cj-char {
       font-size: 20px;
-      color: #222;
+      color: var(--cj-text);
       line-height: 1.2;
       font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
     }
     .cj-code {
       font-size: 14px;
-      color: #4285f4;
+      color: var(--cj-accent);
       font-weight: bold;
       letter-spacing: 2px;
       font-family: 'Consolas', 'Menlo', monospace;
     }
     .cj-roots {
       font-size: 15px;
-      color: #555;
+      color: var(--cj-text-dim);
       letter-spacing: 4px;
     }
     .cj-missing {
       font-size: 12px;
-      color: #bbb;
+      color: var(--cj-missing);
       grid-column: 2 / span 2;
     }
     .cj-error {
       font-size: 12px;
-      color: #d93025;
+      color: var(--cj-error);
       margin-top: 6px;
     }
     .cj-footer {
       margin-top: 10px;
       padding-top: 8px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--cj-border);
       display: flex;
       justify-content: flex-end;
     }
     #cj-open-sidepanel {
       background: none;
       border: none;
-      color: #4285f4;
+      color: var(--cj-accent);
       font-size: 12px;
       cursor: pointer;
       padding: 2px 4px;

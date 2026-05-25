@@ -4,8 +4,22 @@
   const inputEl = document.getElementById('cj-input');
   const resultsEl = document.getElementById('cj-results');
   const emptyEl = document.getElementById('cj-empty');
+  const themeInputs = document.querySelectorAll('input[name="cj-theme"]');
 
   let lastPendingTs = 0;
+
+  CangjieCore.initTheme(document.documentElement, (current) => {
+    for (const input of themeInputs) {
+      input.checked = input.value === current;
+    }
+  });
+
+  for (const input of themeInputs) {
+    input.addEventListener('change', () => {
+      if (!input.checked) return;
+      chrome.storage.sync.set({ [CangjieCore.THEME_KEY]: input.value });
+    });
+  }
 
   function render(text) {
     const html = CangjieCore.renderRowsHtml(text || '');

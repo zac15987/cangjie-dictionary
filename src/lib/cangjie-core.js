@@ -11,6 +11,53 @@
   const HAN_RE = /\p{Script=Han}/u;
   const MAX_SELECTION_LENGTH = 200;
 
+  const THEME_KEY = 'theme';
+  const THEME_DEFAULT = 'system';
+  const THEME_VALUES = ['light', 'dark', 'system'];
+
+  function normalizeTheme(value) {
+    return THEME_VALUES.includes(value) ? value : THEME_DEFAULT;
+  }
+
+  function resolveTheme(theme) {
+    const t = normalizeTheme(theme);
+    if (t === 'light' || t === 'dark') return t;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(rootEl, theme) {
+    if (!rootEl) return;
+    rootEl.setAttribute('data-theme', resolveTheme(theme));
+  }
+
+  async function initTheme(rootEl, onChange) {
+    let current = THEME_DEFAULT;
+    try {
+      const stored = await chrome.storage.sync.get({ [THEME_KEY]: THEME_DEFAULT });
+      current = normalizeTheme(stored[THEME_KEY]);
+    } catch (_) { /* fall back to default */ }
+    applyTheme(rootEl, current);
+    if (typeof onChange === 'function') onChange(current);
+
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area !== 'sync') return;
+      const change = changes[THEME_KEY];
+      if (!change) return;
+      current = normalizeTheme(change.newValue);
+      applyTheme(rootEl, current);
+      if (typeof onChange === 'function') onChange(current);
+    });
+
+    const mql = matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemChange = () => {
+      if (current === 'system') applyTheme(rootEl, current);
+    };
+    if (mql.addEventListener) mql.addEventListener('change', handleSystemChange);
+    else if (mql.addListener) mql.addListener(handleSystemChange);
+
+    return current;
+  }
+
   let dict = null;
   let dictLoading = null;
 
@@ -90,6 +137,11 @@
     renderRowsHtml,
     uniqueHanChars,
     escapeHtml,
-    isDictReady: () => dict !== null
+    isDictReady: () => dict !== null,
+    THEME_KEY,
+    THEME_DEFAULT,
+    resolveTheme,
+    applyTheme,
+    initTheme
   };
 })();

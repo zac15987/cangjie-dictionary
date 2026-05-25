@@ -50,7 +50,7 @@ Important parsing rules baked into the build script:
 
 ### Shared core (`src/lib/cangjie-core.js`)
 
-A **classic script** (not an ES module) that wraps everything in an IIFE and exposes `globalThis.CangjieCore` with `RADICAL_MAP`, `HAN_RE`, `MAX_SELECTION_LENGTH`, `loadDict()`, `hasCJK()`, `decompose()`, `renderRowsHtml()`, `uniqueHanChars()`, `escapeHtml()`, `isDictReady()`. Loaded into every JS context that needs lookup logic:
+A **classic script** (not an ES module) that wraps everything in an IIFE and exposes `globalThis.CangjieCore` with `RADICAL_MAP`, `HAN_RE`, `MAX_SELECTION_LENGTH`, `loadDict()`, `hasCJK()`, `decompose()`, `renderRowsHtml()`, `uniqueHanChars()`, `escapeHtml()`, `isDictReady()`, plus the theme helpers `THEME_KEY`, `THEME_DEFAULT`, `resolveTheme()`, `applyTheme()`, `initTheme()`. Loaded into every JS context that needs lookup logic:
 
 - Content scripts: declared as the first entry in `content_scripts.js` so it runs before `content.js`.
 - Popup and side panel pages: `<script src="lib/cangjie-core.js">` before the page's own script.
@@ -86,6 +86,26 @@ textarea + results region + a hidden `#handwriting-slot` reserved for a future h
 ### Cross-context data channel: `chrome.storage.session.pendingQuery`
 
 This is how the background, popup, and side panel agree on "what text should I show?". Shape: `{ text: string, ts: number }`. The `ts` is necessary because if the user re-queries the same text twice, the `text` field alone wouldn't fire `onChanged` — the timestamp guarantees a distinct value each time. `chrome.runtime.sendMessage` is not used for this data path (the side panel may not be open yet when the message is sent).
+
+### Theme mode (light / dark / system)
+
+Stored as `chrome.storage.sync.theme` with value `'light' | 'dark' | 'system'` (default `'system'`). `sync` not `local` so the preference follows the user across devices, and separate from `storage.session.pendingQuery`.
+
+`CangjieCore.initTheme(rootEl, onChange?)` is the single integration point used by all three UI contexts (popup, side panel, content-script Shadow DOM card). It:
+
+1. Reads the stored value, falls back to `THEME_DEFAULT` on any error.
+2. Resolves `'system'` → `'light' | 'dark'` via `matchMedia('(prefers-color-scheme: dark)')`.
+3. Sets `data-theme="light"` or `data-theme="dark"` on the passed root element.
+4. Registers `chrome.storage.onChanged` (area `'sync'`) so any context changing the theme propagates to all open contexts.
+5. Registers `matchMedia` change listener so OS-level dark/light switches reflect when `theme === 'system'`.
+
+Styling uses CSS custom properties (`--cj-bg`, `--cj-text`, `--cj-accent`, …) defined twice per stylesheet — under `[data-theme="light"]` and `[data-theme="dark"]`. Each surface (popup inline `<style>`, `sidepanel.css`, the inline `<style>` text in `content.js`) carries its own copy of the variable definitions because they live in three isolated CSS scopes (the Shadow DOM cannot inherit page CSS, and popup/sidepanel are separate documents).
+
+Two non-obvious choices in the Shadow DOM card:
+- The themed root is a dedicated `<div id="cj-root">` inside the shadow root (not the shadow host or the document). CSS selectors `#cj-root[data-theme="..."]` define the variables there; `#cj-icon` and `#cj-popup` are children and inherit.
+- The floating 倉 icon's background is **intentionally not themed** — it stays `#4285f4` regardless of theme. The icon is the extension's visual identity on the page; consistency across themes beats matching the card chrome.
+
+Picker UI lives only in the side panel header (radio group). Popup and the content-script card read the setting but don't show a toggle.
 
 ## License constraint
 

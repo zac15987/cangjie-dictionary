@@ -14,6 +14,37 @@
 
   const style = document.createElement('style');
   style.textContent = `
+    #cj-root[data-theme="light"] {
+      --cj-bg: #fff;
+      --cj-text: #222;
+      --cj-text-dim: #555;
+      --cj-text-faint: #999;
+      --cj-border: #e0e0e0;
+      --cj-border-footer: #eee;
+      --cj-border-soft: #f5f5f5;
+      --cj-accent: #4285f4;
+      --cj-accent-hover: #3367d6;
+      --cj-error: #d93025;
+      --cj-missing: #bbb;
+      --cj-shadow: rgba(0, 0, 0, 0.15);
+      --cj-icon-shadow: rgba(0, 0, 0, 0.3);
+    }
+    #cj-root[data-theme="dark"] {
+      --cj-bg: #2a2a2a;
+      --cj-text: #e8e8e8;
+      --cj-text-dim: #a8a8a8;
+      --cj-text-faint: #777;
+      --cj-border: #3a3a3a;
+      --cj-border-footer: #3a3a3a;
+      --cj-border-soft: #333;
+      --cj-accent: #8ab4f8;
+      --cj-accent-hover: #a8c7fa;
+      --cj-error: #f28b82;
+      --cj-missing: #666;
+      --cj-shadow: rgba(0, 0, 0, 0.6);
+      --cj-icon-shadow: rgba(0, 0, 0, 0.7);
+    }
+
     #cj-icon {
       position: fixed;
       display: none;
@@ -27,7 +58,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 8px var(--cj-icon-shadow);
       pointer-events: auto;
       transition: transform 0.1s ease;
       font-family: 'Microsoft JhengHei', 'Microsoft YaHei', 'PingFang TC', sans-serif;
@@ -43,10 +74,10 @@
     #cj-popup {
       position: fixed;
       display: none;
-      background: white;
-      border: 1px solid #e0e0e0;
+      background: var(--cj-bg);
+      border: 1px solid var(--cj-border);
       border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 16px var(--cj-shadow);
       padding: 12px 16px;
       min-width: 200px;
       max-width: 420px;
@@ -64,49 +95,49 @@
       padding: 5px 0;
     }
     .cj-row + .cj-row {
-      border-top: 1px solid #f5f5f5;
+      border-top: 1px solid var(--cj-border-soft);
     }
     .cj-char {
       font-size: 22px;
-      color: #222;
+      color: var(--cj-text);
       line-height: 1.2;
       font-family: 'Microsoft JhengHei', 'PingFang TC', serif;
     }
     .cj-code {
       font-size: 16px;
-      color: #4285f4;
+      color: var(--cj-accent);
       font-weight: bold;
       letter-spacing: 2px;
       font-family: 'Consolas', 'Menlo', monospace;
     }
     .cj-roots {
       font-size: 17px;
-      color: #555;
+      color: var(--cj-text-dim);
       letter-spacing: 4px;
     }
     .cj-missing {
       font-size: 14px;
-      color: #bbb;
+      color: var(--cj-missing);
       grid-column: 2 / span 2;
     }
 
     .cj-loading, .cj-error {
       font-size: 13px;
-      color: #999;
+      color: var(--cj-text-faint);
     }
-    .cj-error { color: #d93025; }
+    .cj-error { color: var(--cj-error); }
 
     #cj-popup-footer {
       margin-top: 8px;
       padding-top: 6px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid var(--cj-border-footer);
       display: flex;
       justify-content: flex-end;
     }
     #cj-open-sidepanel {
       background: none;
       border: none;
-      color: #4285f4;
+      color: var(--cj-accent);
       font-size: 12px;
       cursor: pointer;
       padding: 2px 4px;
@@ -118,15 +149,20 @@
   `;
   shadow.appendChild(style);
 
+  const rootEl = document.createElement('div');
+  rootEl.id = 'cj-root';
+  rootEl.setAttribute('data-theme', 'light');
+  shadow.appendChild(rootEl);
+
   const iconEl = document.createElement('div');
   iconEl.id = 'cj-icon';
   iconEl.textContent = '倉';
   iconEl.title = '顯示倉頡碼分解';
-  shadow.appendChild(iconEl);
+  rootEl.appendChild(iconEl);
 
   const popupEl = document.createElement('div');
   popupEl.id = 'cj-popup';
-  shadow.appendChild(popupEl);
+  rootEl.appendChild(popupEl);
 
   const popupContentEl = document.createElement('div');
   popupContentEl.id = 'cj-popup-content';
@@ -143,6 +179,7 @@
 
   // Kick off dict load eagerly so first click is instant.
   CangjieCore.loadDict().catch(() => { /* will retry on click */ });
+  CangjieCore.initTheme(rootEl);
 
   // === UI FUNCTIONS ===
 
