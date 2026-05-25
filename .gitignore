@@ -24,3 +24,5 @@ desktop.ini
 # Local env
 .env
 .env.local
+
+.claude
