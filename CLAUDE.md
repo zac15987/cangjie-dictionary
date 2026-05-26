@@ -109,7 +109,7 @@ Styling uses CSS custom properties (`--cj-bg`, `--cj-text`, `--cj-accent`, …) 
 
 Two non-obvious choices in the Shadow DOM card:
 - The themed root is a dedicated `<div id="cj-root">` inside the shadow root (not the shadow host or the document). CSS selectors `#cj-root[data-theme="..."]` define the variables there; `#cj-icon` and `#cj-popup` are children and inherit.
-- The floating 倉 icon's background is **intentionally not themed** — it stays `#4285f4` regardless of theme. The icon is the extension's visual identity on the page; consistency across themes beats matching the card chrome.
+- The floating 倉 icon's chrome is **intentionally not themed** — it always renders in the extension's "seal" brand palette (cream `#f4e8d0` body, ink `#1a1614` border + glyph, cinnabar `#a23829` inner stroke) to match `src/icons/icon.svg`. The icon is the extension's visual identity on the page; consistency across themes beats matching the card chrome.
 
 Picker UI lives only in the side panel header (radio group). Popup and the content-script card read the setting but don't show a toggle.
 

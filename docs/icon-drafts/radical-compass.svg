@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- ink black background -->
+  <rect width="128" height="128" rx="24" fill="#1a1614"/>
+  <!-- outer compass ring -->
+  <circle cx="64" cy="64" r="54" fill="none" stroke="#d4a548" stroke-width="1.2" opacity="0.55"/>
+  <!-- 24 inactive tick marks on the ring -->
+  <g stroke="#d4a548" stroke-width="1" opacity="0.40">
+    <!-- 24 ticks at 15° each, length 4 px -->
+    <line x1="64" y1="10" x2="64" y2="14"/>
+    <line x1="77.97" y1="11.83" x2="76.93" y2="15.69"/>
+    <line x1="91.00" y1="17.24" x2="89.00" y2="20.71"/>
+    <line x1="102.18" y1="25.82" x2="99.36" y2="28.64"/>
+    <line x1="110.76" y1="37.00" x2="107.29" y2="39.00"/>
+    <line x1="116.17" y1="50.03" x2="112.31" y2="51.07"/>
+    <line x1="118" y1="64" x2="114" y2="64"/>
+    <line x1="116.17" y1="77.97" x2="112.31" y2="76.93"/>
+    <line x1="110.76" y1="91.00" x2="107.29" y2="89.00"/>
+    <line x1="102.18" y1="102.18" x2="99.36" y2="99.36"/>
+    <line x1="91.00" y1="110.76" x2="89.00" y2="107.29"/>
+    <line x1="77.97" y1="116.17" x2="76.93" y2="112.31"/>
+    <line x1="64" y1="118" x2="64" y2="114"/>
+    <line x1="50.03" y1="116.17" x2="51.07" y2="112.31"/>
+    <line x1="37.00" y1="110.76" x2="39.00" y2="107.29"/>
+    <line x1="25.82" y1="102.18" x2="28.64" y2="99.36"/>
+    <line x1="17.24" y1="91.00" x2="20.71" y2="89.00"/>
+    <line x1="11.83" y1="77.97" x2="15.69" y2="76.93"/>
+    <line x1="10" y1="64" x2="14" y2="64"/>
+    <line x1="11.83" y1="50.03" x2="15.69" y2="51.07"/>
+    <line x1="17.24" y1="37.00" x2="20.71" y2="39.00"/>
+    <line x1="25.82" y1="25.82" x2="28.64" y2="28.64"/>
+    <line x1="37.00" y1="17.24" x2="39.00" y2="20.71"/>
+    <line x1="50.03" y1="11.83" x2="51.07" y2="15.69"/>
+  </g>
+  <!-- four active radicals: highlighted ticks + radial connectors + chars -->
+  <g stroke="#c0392b" stroke-width="1.5" opacity="0.80">
+    <line x1="64" y1="42" x2="64" y2="22"/>
+    <line x1="86" y1="64" x2="106" y2="64"/>
+    <line x1="64" y1="86" x2="64" y2="106"/>
+    <line x1="42" y1="64" x2="22" y2="64"/>
+  </g>
+  <g fill="#c0392b">
+    <circle cx="64" cy="14" r="2.4"/>
+    <circle cx="114" cy="64" r="2.4"/>
+    <circle cx="64" cy="114" r="2.4"/>
+    <circle cx="14" cy="64" r="2.4"/>
+  </g>
+  <!-- four active radical chars just inside the ring -->
+  <g font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+     font-size="14" font-weight="700" fill="#f4e8d0" text-anchor="middle">
+    <text x="64" y="32">人</text>
+    <text x="96" y="68">戈</text>
+    <text x="64" y="104">日</text>
+    <text x="32" y="68">口</text>
+  </g>
+  <!-- center 倉 -->
+  <text x="64" y="74"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="34" font-weight="700" fill="#d4a548"
+        text-anchor="middle">倉</text>
+</svg>

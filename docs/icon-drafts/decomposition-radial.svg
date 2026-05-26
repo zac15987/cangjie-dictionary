@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- jade/teal background -->
+  <rect width="128" height="128" rx="24" fill="#0f3d3a"/>
+  <!-- outer ring (dictionary "entry" frame) -->
+  <circle cx="64" cy="64" r="52" fill="none" stroke="#d4a548" stroke-width="2" opacity="0.55"/>
+  <!-- connectors from center to four component radicals -->
+  <g stroke="#d4a548" stroke-width="1.2" opacity="0.45">
+    <line x1="64" y1="64" x2="64" y2="18"/>
+    <line x1="64" y1="64" x2="110" y2="64"/>
+    <line x1="64" y1="64" x2="64" y2="110"/>
+    <line x1="64" y1="64" x2="18" y2="64"/>
+  </g>
+  <!-- four cangjie radicals of 倉 = 人戈日口 (oiar) -->
+  <text x="64" y="24"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0" opacity="0.92"
+        text-anchor="middle">人</text>
+  <text x="110" y="70"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0" opacity="0.92"
+        text-anchor="middle">戈</text>
+  <text x="64" y="116"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0" opacity="0.92"
+        text-anchor="middle">日</text>
+  <text x="18" y="70"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0" opacity="0.92"
+        text-anchor="middle">口</text>
+  <!-- center disc -->
+  <circle cx="64" cy="64" r="28" fill="#d4a548"/>
+  <!-- center 倉 -->
+  <text x="64" y="76"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="36" font-weight="700" fill="#0f3d3a"
+        text-anchor="middle">倉</text>
+</svg>

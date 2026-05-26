@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- blueprint navy seal body -->
+  <rect width="128" height="128" rx="22" fill="#0d2238"/>
+  <!-- faint blueprint grid inside -->
+  <g stroke="#5d8bb3" stroke-opacity="0.14" stroke-width="0.5">
+    <line x1="32" y1="14" x2="32" y2="114"/>
+    <line x1="64" y1="14" x2="64" y2="114"/>
+    <line x1="96" y1="14" x2="96" y2="114"/>
+    <line x1="14" y1="32" x2="114" y2="32"/>
+    <line x1="14" y1="64" x2="114" y2="64"/>
+    <line x1="14" y1="96" x2="114" y2="96"/>
+  </g>
+  <!-- cinnabar double-line frame -->
+  <rect x="9" y="9" width="110" height="110" rx="15"
+        fill="none" stroke="#d4664a" stroke-width="2.5" opacity="0.95"/>
+  <rect x="14" y="14" width="100" height="100" rx="11"
+        fill="none" stroke="#f4e8d0" stroke-width="1" opacity="0.50"/>
+  <!-- four cangjie radicals at corners -->
+  <g font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+     font-size="13" font-weight="700" fill="#f4e8d0" text-anchor="middle" opacity="0.95">
+    <text x="26" y="32">人</text>
+    <text x="102" y="32">戈</text>
+    <text x="26" y="108">日</text>
+    <text x="102" y="108">口</text>
+  </g>
+  <!-- center 倉 in cream -->
+  <text x="64" y="84"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC','SimSun',serif"
+        font-size="72" font-weight="700" fill="#f4e8d0"
+        text-anchor="middle">倉</text>
+</svg>

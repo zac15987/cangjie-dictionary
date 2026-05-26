@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
+  // Bail on non-HTML documents (e.g. raw SVG, XML) — they have no <body>
+  // and the extension's selection / icon UX doesn't apply there.
+  if (!document.body) return;
+
   const HOST_ID = 'cangjie-dictionary-host';
 
   let currentSelection = '';
@@ -50,25 +54,29 @@
       display: none;
       width: 28px;
       height: 28px;
-      border-radius: 50%;
-      background: #4285f4;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
+      border-radius: 5px;
+      background: #f4e8d0;
+      color: #1a1614;
+      border: 1.5px solid #1a1614;
+      box-shadow:
+        inset 0 0 0 2px #f4e8d0,
+        inset 0 0 0 3px rgba(162, 56, 41, 0.8),
+        0 2px 8px var(--cj-icon-shadow);
+      font-size: 17px;
+      font-weight: 700;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 8px var(--cj-icon-shadow);
       pointer-events: auto;
-      transition: transform 0.1s ease;
-      font-family: 'Microsoft JhengHei', 'Microsoft YaHei', 'PingFang TC', sans-serif;
+      transition: transform 0.1s ease, background 0.1s ease;
+      font-family: 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'SimSun', 'PMingLiU', serif;
       user-select: none;
       line-height: 28px;
       text-align: center;
     }
     #cj-icon:hover {
       transform: scale(1.1);
-      background: #3367d6;
+      background: #ede0c5;
     }
 
     #cj-popup {
