@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- blueprint navy background -->
+  <rect width="128" height="128" rx="24" fill="#0d2238"/>
+  <!-- faint blueprint grid -->
+  <g stroke="#5d8bb3" stroke-opacity="0.18" stroke-width="0.5">
+    <line x1="16" y1="0" x2="16" y2="128"/>
+    <line x1="32" y1="0" x2="32" y2="128"/>
+    <line x1="48" y1="0" x2="48" y2="128"/>
+    <line x1="64" y1="0" x2="64" y2="128"/>
+    <line x1="80" y1="0" x2="80" y2="128"/>
+    <line x1="96" y1="0" x2="96" y2="128"/>
+    <line x1="112" y1="0" x2="112" y2="128"/>
+    <line x1="0" y1="16" x2="128" y2="16"/>
+    <line x1="0" y1="32" x2="128" y2="32"/>
+    <line x1="0" y1="48" x2="128" y2="48"/>
+    <line x1="0" y1="64" x2="128" y2="64"/>
+    <line x1="0" y1="80" x2="128" y2="80"/>
+    <line x1="0" y1="96" x2="128" y2="96"/>
+    <line x1="0" y1="112" x2="128" y2="112"/>
+  </g>
+  <!-- engineering leader lines (dashed) from 倉 to each radical -->
+  <g stroke="#d4664a" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.85" fill="none">
+    <path d="M 64 50 L 64 28"/>
+    <path d="M 78 64 L 102 64"/>
+    <path d="M 64 78 L 64 100"/>
+    <path d="M 50 64 L 26 64"/>
+  </g>
+  <!-- leader endpoint dots -->
+  <g fill="#d4664a">
+    <circle cx="64" cy="28" r="2"/>
+    <circle cx="102" cy="64" r="2"/>
+    <circle cx="64" cy="100" r="2"/>
+    <circle cx="26" cy="64" r="2"/>
+  </g>
+  <!-- center 倉 (the assembled part) -->
+  <text x="64" y="74"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="32" font-weight="700" fill="#f4e8d0"
+        text-anchor="middle">倉</text>
+  <!-- exploded radicals 人戈日口 -->
+  <text x="64" y="22"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0"
+        text-anchor="middle">人</text>
+  <text x="108" y="70"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0"
+        text-anchor="middle">戈</text>
+  <text x="64" y="118"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0"
+        text-anchor="middle">日</text>
+  <text x="20" y="70"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+        font-size="16" font-weight="600" fill="#f4e8d0"
+        text-anchor="middle">口</text>
+  <!-- engineering tick corners (drawing frame marks) -->
+  <g stroke="#d4664a" stroke-width="1.5" fill="none" opacity="0.75">
+    <path d="M 14 14 L 22 14 M 14 14 L 14 22"/>
+    <path d="M 114 14 L 106 14 M 114 14 L 114 22"/>
+    <path d="M 14 114 L 22 114 M 14 114 L 14 106"/>
+    <path d="M 114 114 L 106 114 M 114 114 L 114 106"/>
+  </g>
+</svg>

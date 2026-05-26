@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- outer dark binding -->
+  <rect width="128" height="128" rx="24" fill="#3a1e1a"/>
+  <!-- aged paper page -->
+  <rect x="14" y="12" width="100" height="104" rx="3" fill="#f4e8d0"/>
+  <!-- subtle paper grain -->
+  <g fill="#c9b489" opacity="0.18">
+    <circle cx="32" cy="40" r="0.7"/>
+    <circle cx="88" cy="36" r="0.7"/>
+    <circle cx="46" cy="92" r="0.7"/>
+    <circle cx="82" cy="98" r="0.6"/>
+    <circle cx="22" cy="72" r="0.6"/>
+    <circle cx="102" cy="78" r="0.6"/>
+  </g>
+  <!-- left red marginal column rule (傳統字書頁邊) -->
+  <line x1="30" y1="20" x2="30" y2="108" stroke="#a23829" stroke-width="1.5"/>
+  <!-- right column divider -->
+  <line x1="78" y1="20" x2="78" y2="108" stroke="#a23829" stroke-width="0.8" opacity="0.5"/>
+  <!-- main headword 倉 (large, traditional serif) -->
+  <text x="54" y="68"
+        font-family="'Noto Serif TC','Source Han Serif TC','Songti TC','SimSun',serif"
+        font-size="48" font-weight="700" fill="#1a1614"
+        text-anchor="middle">倉</text>
+  <!-- vertical annotation column on the right: 4 cangjie radicals stacked top-to-bottom -->
+  <g font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+     font-size="13" font-weight="600" fill="#1a1614" text-anchor="middle">
+    <text x="94" y="36">人</text>
+    <text x="94" y="56">戈</text>
+    <text x="94" y="76">日</text>
+    <text x="94" y="96">口</text>
+  </g>
+  <!-- cinnabar seal stamp (印) at lower-left of the page -->
+  <g transform="translate(36 96) rotate(-3)">
+    <rect x="-7" y="-7" width="14" height="14" rx="1" fill="#a23829"/>
+    <text x="0" y="3.5"
+          font-family="'Noto Serif TC','Source Han Serif TC','Songti TC',serif"
+          font-size="9" font-weight="700" fill="#f4e8d0"
+          text-anchor="middle">字</text>
+  </g>
+</svg>

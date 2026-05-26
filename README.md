@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="src/icons/icon128.png" alt="Cangjie Dictionary" width="80">
+<img src="src/icons/icon.svg" alt="Cangjie Dictionary" width="80">
 
 # Cangjie Dictionary
 
