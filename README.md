@@ -139,4 +139,4 @@ node scripts/build-data.mjs --offline  # 用 scripts/raw/ 的快取
 
 授權標註遵循 [REUSE](https://reuse.software/) 慣例：`src/data/cangjie5.json.license` 為對應的 SPDX sidecar。若 fork 或散布本專案，請保留字典檔的授權標註並符合 LGPL-3.0-or-later 散布條件（允許使用者替換字典）。
 
-UX 模式參考 [pinyin-to-chinese](https://gitlab.com/zac15987/pinyin-to-chinese)（MIT）。
+UX 模式參考 [pinyin-to-chinese](https://github.com/zac15987/pinyin-to-chinese)（MIT）。
